@@ -1,15 +1,33 @@
 import PropTypes from 'prop-types'; // ES6
-
-const Blog = ({blog}) => {
-    console.log(blog);
+import { FaBookmark } from 'react-icons/fa';
+const Blog = ({blog, handleAddToBookMarks}) => {
+    const{title,cover,author_img,author,posted_date,reading_time,hashtags} = blog
     return (
-        <div>
-            
+        <div className='mt-4'>
+            <img className='w-full mt-10' src={cover} alt="" />
+            <div className='flex justify-between mt-4'>
+                <div className='flex gap-2'>
+                    <img className='w-14' src={author_img} alt="" />
+                    <div>
+                        <p>{author}</p>
+                        <p>{posted_date}</p>
+                    </div>
+                </div>
+                <div>
+                    <span>{reading_time} min read</span>
+                    <button onClick={() =>handleAddToBookMarks(blog)} className='ml-3'><FaBookmark></FaBookmark></button>
+                </div>
+            </div>
+            <h4>Blog Title : {title}</h4>
+            <p>
+                {hashtags.map((hash,idx) => <span key={idx}> <a href="">#{hash}</a> </span>)}
+            </p>
         </div>
     );
 };
 
 Blog.propTypes = {
-    blog:PropTypes.object.isRequired
+    blog:PropTypes.object.isRequired,
+    handleAddToBookMarks:PropTypes.func.isRequired  
 }
 export default Blog;
